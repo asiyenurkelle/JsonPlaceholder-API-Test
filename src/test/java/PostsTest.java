@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test;
 import spec.ResponseSpec;
 
 
-public class JsonPlaceHolderAPI extends BaseServiceTest {
+public class PostsTest extends BaseServiceTest {
 
     @Test
-    public void getRequest() {
+    public void getPostRequest() {
 
         Response response = postService.PostGet(ResponseSpec.checkStatusCodeOk());
         Assertions.assertEquals("qui est esse", response.jsonPath().getString("title[1]"));
     }
     @Test
-    public void putRequest() {
+    public void putPostRequest() {
         Response response = postService.PostPut(ResponseSpec.checkStatusCodeOk());
         GetResponse as= response.as(GetResponse.class);
         Assertions.assertEquals("foo",as.getTitle());
@@ -23,7 +23,7 @@ public class JsonPlaceHolderAPI extends BaseServiceTest {
         Assertions.assertEquals("1", as.getId());
     }
     @Test
-    public void postRequest() {
+    public void postPostRequest() {
         Response response = postService.PostPost(ResponseSpec.checkStatusCodeCreated());
         GetResponse as= response.as(GetResponse.class);
         Assertions.assertEquals("foo", as.getTitle());
@@ -32,10 +32,26 @@ public class JsonPlaceHolderAPI extends BaseServiceTest {
         Assertions.assertEquals("101",as.getId());
     }
     @Test
-    public void deleteRequest() {
+    public void deletePostRequest() {
         Response response = postService.PostDelete(ResponseSpec.checkStatusCodeOk());
-
     }
+
+    @Test
+    public void getCommentsRequest() {
+
+        Response response = commentService.CommentGet(ResponseSpec.checkStatusCodeOk());
+        Assertions.assertEquals("quo vero reiciendis velit similique earum", response.jsonPath().getString("name[1]"));
+        Assertions.assertEquals("Jayne_Kuhic@sydney.com", response.jsonPath().getString("email[1]"));
+    }
+
+    @Test
+    public void deleteCommentRequest() {
+        Response response = commentService.CommentDelete(ResponseSpec.checkStatusCodeOk());
+    }
+
+
+
+
 
 
 }

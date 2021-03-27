@@ -1,75 +1,73 @@
 package service;
 
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.ResponseSpecification;
 import spec.RequestSpec;
 
+public class CommentService  extends RequestSpec {
 
-public class PostService extends RequestSpec {
-    public PostService() {
+    public CommentService() {
         super("https://jsonplaceholder.typicode.com");
     }
     public static String requestBody = "{\n" +
-            "  \"title\": \"foo\",\n" +
+            "  \"name\": \"foo\",\n" +
             "  \"body\": \"baz\",\n" +
-            "  \"userId\": \"1\",\n" +
-            "  \"id\": \"1\" \n}";
-
-    private static String requestBodyPost =  "{\n" +
-            "  \"title\": \"foo\",\n" +
+            "  \"postId\": \"1\",\n" +
+            "  \"id\": \"1\" \n" +
+            " \"email\": \"asiye@deneme.com\",\n}";
+    private static String requestBodyComments =  "{\n" +
+            "  \"name\": \"foo\",\n" +
             "  \"body\": \"bar\",\n" +
-            "  \"userId\": \"1\" \n}";
+            "  \"postId\": \"1\" \n}"+
+            " \"email\": \"asiye@deneme.com\" \n}";
 
 
-
-    public Response PostGet(ResponseSpecification responseSpecification){
+    public Response CommentGet(ResponseSpecification responseSpecification){
         return RestAssured.given()
                 .spec(super.getRequestSpecification())
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/posts")
+                .get("/comments")
                 .then()
                 .spec(responseSpecification)
                 .extract()
                 .response();
     }
-    public Response PostPut(ResponseSpecification responseSpecification){
+    public Response CommentPut(ResponseSpecification responseSpecification){
         return  RestAssured.given()
                 .spec(super.getRequestSpecification())
                 .header("Content-type", "application/json")
                 .and()
                 .body(requestBody)
                 .when()
-                .put("/posts/1")
+                .put("/comments/1")
                 .then()
                 .extract()
                 .response();
     }
-    public Response PostPost(ResponseSpecification responseSpecification){
+    public Response CommentPost(ResponseSpecification responseSpecification){
         return  RestAssured.given()
                 .spec(super.getRequestSpecification())
                 .header("Content-type", "application/json")
                 .and()
-                .body(requestBodyPost)
+                .body(requestBodyComments)
                 .when()
-                .post("/posts")
+                .post("/comments")
                 .then()
                 .extract()
                 .response();
     }
-    public Response PostDelete(ResponseSpecification responseSpecification){
+
+    public Response CommentDelete(ResponseSpecification responseSpecification){
         return  RestAssured.given()
                 .spec(super.getRequestSpecification())
                 .header("Content-type", "application/json")
                 .when()
-                .delete("/posts/1")
+                .delete("/comments/1")
                 .then()
                 .extract()
                 .response();
     }
-
-
 }
