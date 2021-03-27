@@ -49,9 +49,4 @@ public class PostsTest extends BaseServiceTest {
         Response response = commentService.CommentDelete(ResponseSpec.checkStatusCodeOk());
     }
 
-
-
-
-
-
 }
